@@ -1,0 +1,2 @@
+```python
+Book.objects.all()
