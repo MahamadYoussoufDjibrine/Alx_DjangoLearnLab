@@ -1,4 +1,9 @@
+# Delete a Book instance
+
 ```python
-book = Book.objects.get(title="Nineteen Eighty-Four")
+from bookshelf.models import Book
+
+book = Book.objects.get(title="1984")
 book.delete()
+
 Book.objects.all()
