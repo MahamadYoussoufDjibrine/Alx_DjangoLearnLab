@@ -1,14 +1,87 @@
+<!-- relationship_app/templates/relationship_app/list_books.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+        li:hover {
+            background-color: #f9f9f9;
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+        .book-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .author-name {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        .no-books {
+            color: #e74c3c;
+            font-style: italic;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .stats {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Books Available:</h1>
-    <ul>
-        {% for book in books %}
-            <li>{{ book.title }} by {{ book.author.name }}</li>
-        {% endfor %}
-    </ul>
+    <h1>📚 Books Available</h1>
+    
+    <div class="stats">
+        Total Books: {{ books|length }}
+    </div>
+    
+    {% if books %}
+        <ul>
+            {% for book in books %}
+                <li>
+                    <span class="book-title">{{ book.title }}</span> 
+                    <br>
+                    <span class="author-name">👤 Author: {{ book.author.name }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="no-books">
+            <p>No books available in the database yet.</p>
+            <p>Add some books through the Django admin or using the shell.</p>
+        </div>
+    {% endif %}
 </body>
 </html>
