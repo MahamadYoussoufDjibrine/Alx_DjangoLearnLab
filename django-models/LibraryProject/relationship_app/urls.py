@@ -5,5 +5,5 @@ app_name = "relationship_app"
 
 urlpatterns = [
     path("books/", list_books, name="list_books"),
-    path("library/<int:library_id>/", LibraryDetailView.as_view(), name="library_detail"),
+    path("library/<int:pk>/", LibraryDetailView.as_view(), name="library_detail"),
 ]
