@@ -6,36 +6,24 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render
+from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse
 
-def is_admin(user):
-    return user.is_authenticated and user.userprofile.role == 'Admin'
 
-
-def is_librarian(user):
-    return user.is_authenticated and user.userprofile.role == 'Librarian'
-
-
-def is_member(user):
-    return user.is_authenticated and user.userprofile.role == 'Member'
-
-
-@user_passes_test(is_admin)
+@user_passes_test(lambda u: hasattr(u, 'userprofile') and u.userprofile.role == 'Admin')
 def admin_view(request):
     return render(request, "relationship_app/admin_view.html")
 
 
-@user_passes_test(is_librarian)
+@user_passes_test(lambda u: hasattr(u, 'userprofile') and u.userprofile.role == 'Librarian')
 def librarian_view(request):
     return render(request, "relationship_app/librarian_view.html")
 
 
-@user_passes_test(is_member)
+@user_passes_test(lambda u: hasattr(u, 'userprofile') and u.userprofile.role == 'Member')
 def member_view(request):
     return render(request, "relationship_app/member_view.html")
-
-
-
 
 # Function-based view: list all books
 def list_books(request):
@@ -84,3 +72,18 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, "relationship_app/register.html", {"form": form})
+
+
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book(request):
+    return HttpResponse("Add book view - permission granted")
+
+
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book(request, book_id):
+    return HttpResponse("Edit book view - permission granted")
+
+
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request, book_id):
+    return HttpResponse("Delete book view - permission granted")
