@@ -186,3 +186,5 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # Enable browser XSS filtering
 SECURE_BROWSER_XSS_FILTER = True
 
+# Trust X-Forwarded-Proto header set by proxy (e.g., Nginx, load balancer)
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
