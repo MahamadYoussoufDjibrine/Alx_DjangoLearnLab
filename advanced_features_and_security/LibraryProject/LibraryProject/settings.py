@@ -151,3 +151,38 @@ X_FRAME_OPTIONS = "DENY"
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
+
+# ============================================================
+# HTTPS & SECURITY SETTINGS (Production-grade)
+# ============================================================
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS)
+# Instruct browsers to only access the site via HTTPS for 1 year
+SECURE_HSTS_SECONDS = 31536000
+
+# Apply HSTS policy to all subdomains
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Allow the site to be included in browser HSTS preload lists
+SECURE_HSTS_PRELOAD = True
+
+# Secure cookies: only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# ============================================================
+# Secure HTTP Headers
+# ============================================================
+
+# Prevent clickjacking
+X_FRAME_OPTIONS = "DENY"
+
+# Prevent MIME-type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable browser XSS filtering
+SECURE_BROWSER_XSS_FILTER = True
+
