@@ -1,7 +1,8 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from .models import Book
 from .serializers import BookSerializer
+
 
 # READ (public): anyone can list books
 class ListView(generics.ListAPIView):
@@ -17,22 +18,22 @@ class DetailView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
 
 
-# WRITE (protected): only authenticated users can create a book
+# WRITE (user): authenticated users can create books
 class CreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
 
 
-# WRITE (protected): only authenticated users can update a book
+# WRITE (user): authenticated users can update books
 class UpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
 
 
-# WRITE (protected): only authenticated users can delete a book
+# WRITE (admin role): only admins/staff can delete books
 class DeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
