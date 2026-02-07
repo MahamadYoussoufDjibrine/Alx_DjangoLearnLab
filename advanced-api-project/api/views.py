@@ -1,51 +1,43 @@
 from rest_framework import generics
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Book
 from .serializers import BookSerializer
 
-# ListView: Public (unauthenticated users can read)
-# GET /api/books/
+# ListView: public read access
 class ListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-# DetailView: Public (unauthenticated users can read)
-# GET /api/books/<pk>/
+# DetailView: public read access
 class DetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-# CreateView: Auth required (only logged-in users can create)
-# POST /api/books/create/
+# CreateView: authenticated users only
 class CreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
 
-    # Customize behavior: ensure serializer validation runs and return created object.
-    # (DRF already does this; this override just makes behavior explicit for the task.)
     def perform_create(self, serializer):
         serializer.save()
 
 
-# UpdateView: Auth required (only logged-in users can update)
-# PUT/PATCH /api/books/update/<pk>/
+# UpdateView: authenticated users only
 class UpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
 
-    # Customize behavior: serializer validation will run (e.g., publication_year not future).
     def perform_update(self, serializer):
         serializer.save()
 
 
-# DeleteView: Auth required (only logged-in users can delete)
-# DELETE /api/books/delete/<pk>/
+# DeleteView: authenticated users only
 class DeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
