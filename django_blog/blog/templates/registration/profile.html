@@ -1,9 +1,24 @@
-<h2>Profile</h2>
-<p>Username: {{ request.user.username }}</p>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+  <link rel="stylesheet" href="{% static 'blog/auth.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h2>Profile</h2>
 
-<form method="post">
-  {% csrf_token %}
-  <label>Email</label>
-  <input type="email" name="email" value="{{ request.user.email }}" />
-  <button type="submit">Update</button>
-</form>
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <label>Email</label>
+      <input type="email" name="email" value="{{ request.user.email }}" required>
+      <button type="submit">Update</button>
+    </form>
+
+    <a class="small-link" href="{% url 'logout' %}">Logout</a>
+  </div>
+</body>
+</html>
