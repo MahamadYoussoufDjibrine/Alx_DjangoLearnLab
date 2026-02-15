@@ -1,10 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>Django Blog</title>
+  <link rel="stylesheet" href="{% static 'blog/auth.css' %}">
 </head>
 <body>
-  <h1>Django Blog is running ✅</h1>
+  <div class="container">
+    <h2>Django Blog</h2>
+
+    {% if user.is_authenticated %}
+      <p>Welcome, {{ user.username }}!</p>
+      <a class="small-link" href="{% url 'profile' %}">Profile</a>
+      <a class="small-link" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a class="small-link" href="{% url 'login' %}">Login</a>
+      <a class="small-link" href="{% url 'register' %}">Register</a>
+    {% endif %}
+  </div>
 </body>
 </html>
-
