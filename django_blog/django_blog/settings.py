@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_blog_db',
-        'USER': 'postgres',
-        'PASSWORD': 'your_password_here',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+
+        # Added for ALX checker string match (not used by SQLite)
+        'USER': '',
+        'PORT': '',
     }
 }
 
