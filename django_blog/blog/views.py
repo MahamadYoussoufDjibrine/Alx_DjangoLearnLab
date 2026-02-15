@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import RegisterForm
+from django.shortcuts import render
+
+def home(request):
+    return render(request, "blog/home.html")
+
 
 def register(request):
     if request.method == "POST":
