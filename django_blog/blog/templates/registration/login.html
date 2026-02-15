@@ -9,6 +9,10 @@
   <div class="container">
     <h2>Login</h2>
 
+    {% if form.errors %}
+      <div class="msg">Invalid username or password.</div>
+    {% endif %}
+
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}

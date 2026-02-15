@@ -9,6 +9,12 @@
   <div class="container">
     <h2>Profile</h2>
 
+    {% if messages %}
+      {% for message in messages %}
+        <div class="msg">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
     <p><strong>Username:</strong> {{ request.user.username }}</p>
 
     <form method="post">

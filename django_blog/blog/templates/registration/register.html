@@ -9,6 +9,31 @@
   <div class="container">
     <h2>Register</h2>
 
+    <link rel="stylesheet" href="{% static 'blog/auth.css' %}">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Register</button>
+    </form>
+
+    <a class="small-link" href="{% url 'login' %}">Already have an account? Login</a>
+  </div>
+</body>
+</html>{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="{% static 'blog/auth.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h2>Register</h2>
+
+    {% if form.errors %}
+      <div class="msg">Please correct the errors below.</div>
+    {% endif %}
+
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
@@ -19,3 +44,4 @@
   </div>
 </body>
 </html>
+
